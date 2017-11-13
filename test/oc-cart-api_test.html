@@ -12,19 +12,41 @@
     <link rel="import" href="../oc-cart-api.html">
   </head>
   <body>
-    <test-fixture id="basic">
+
+    <test-fixture id="BasicTestFixture">
       <template>
         <oc-cart-api></oc-cart-api>
       </template>
     </test-fixture>
 
+    <test-fixture id="ChangedPropertyTestFixture">
+      <template>
+        <oc-cart-api prop1="new-prop1"></oc-cart-api>
+      </template>
+    </test-fixture>
+
     <script>
-      suite('oc-cart-api', function() {
-        test('instantiating the element works', function() {
-          var element = fixture('basic');
-          assert.equal(element.is, 'oc-cart-api');
+      suite('oc-cart-api', () => {
+
+        test('instantiating the element with default properties works', () => {
+          const element = fixture('BasicTestFixture');
+          assert.equal(element.prop1, 'oc-cart-api');
+          const elementShadowRoot = element.shadowRoot;
+          const elementHeader = elementShadowRoot.querySelector('h2');
+          assert.equal(elementHeader.innerHTML, 'Hello oc-cart-api!');
         });
+
+        test('setting a property on the element works', () => {
+          // Create a test fixture
+          const element = fixture('ChangedPropertyTestFixture');
+          assert.equal(element.prop1, 'new-prop1');
+          const elementShadowRoot = element.shadowRoot;
+          const elementHeader = elementShadowRoot.querySelector('h2');
+          assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+        });
+
       });
     </script>
+
   </body>
 </html>
