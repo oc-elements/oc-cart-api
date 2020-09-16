@@ -6,7 +6,8 @@
     <template>
         <iron-ajax id="getCart"></iron-ajax>
         <iron-ajax id="clearCart"></iron-ajax>
-        <iron-ajax id="addToCart"></iron-ajax>
+		<iron-ajax id="addToCart"></iron-ajax>
+		<iron-ajax id="scanToCart"></iron-ajax>
         <iron-ajax id="removeFromCart"></iron-ajax>
         <iron-ajax id="createOrder"></iron-ajax>
 
@@ -55,6 +56,14 @@
                 this.$.addToCart.contentType = "application/json";
                 this.$.addToCart.body = details;
                 return this._generateRequest(this.$.addToCart);
+            }
+
+			scanToCart(userId, details) {
+                this.$.scanToCart.url = this._generateUrl('cart/scan/user/'+userId );
+                this.$.scanToCart.method = "PUT";
+                this.$.scanToCart.contentType = "application/json";
+                this.$.scanToCart.body = details;
+                return this._generateRequest(this.$.scanToCart);
             }
 
             /**
